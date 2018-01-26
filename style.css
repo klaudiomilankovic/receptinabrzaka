@@ -1,0 +1,13 @@
+body {
+    background: #111;
+    color: #fff;
+    font-size: 16;
+    font-family: Arial;
+}
+
+.wrapper {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 50px;
+
+}
