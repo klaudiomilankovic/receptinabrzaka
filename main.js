@@ -3,35 +3,51 @@
 (function() {
 
   // Initialize Firebase
-  var config = {
+  const config = {
     apiKey: "AIzaSyCJItlQ5Qo82r_0Z2XOObgKRHw4Sp4RnnQ",
     authDomain: "recepti-na-brzaka.firebaseapp.com",
     databaseURL: "https://recepti-na-brzaka.firebaseio.com",
     projectId: "recepti-na-brzaka",
-    storageBucket: "",
+    storageBucket: "gs://recepti-na-brzaka.appspot.com/",
     messagingSenderId: "839646076886"
   };
   firebase.initializeApp(config);
 
-  var database = firebase.database();
+  const database = firebase.database();
 
-
-  var recepti = document.querySelector('#recepti');
-
-  var dbData = firebase.database().ref().once('value').then(function(snapshot) {
+  const dbData = firebase.database().ref().once('value').then(function(snapshot) {
      let dbObject = snapshot.val();
   });
 
-  var dbRef = database.ref();
+  const dbRef = database.ref();
 
-  var recept = {
-    ime : 'imetest',
-    sastojci : ['sastojak1','sastojak2'],
-    priprema : 'priprematest',
-    masnoca : 'niska'
+ 
+
+  const recipes    = document.querySelector('#recipes');
+  const addRecipes = document.querySelector('#add-recipe');
+
+  
+  // Adding recipes 
+  {// Needs to pickup ingretients from the form
+    const recept = {
+      ime : 'imetest',
+      sastojci : ['sastojak1','sastojak2'],
+      priprema : 'priprematest',
+      masnoca : 'niska'
+    }
+
+    function handleAddRecipes() {
+      dbRef.push().set(recept, function(error) {
+        if (error) {
+          console.log(`Data could not be saved. ${error}`)
+        } else {
+          console.log("Data successfully saved");
+        }
+      }); 
+    }
+
+    addRecipes.addEventListener('click', handleAddRecipes);
   }
 
-  dbRef.push(recept);
-
-
+  
 }());
