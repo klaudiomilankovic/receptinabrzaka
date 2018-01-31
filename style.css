@@ -1,3 +1,10 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
     background: #111;
     color: #fff;
@@ -6,8 +13,80 @@ body {
 }
 
 .wrapper {
-    max-width: 500px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.add-recipes-form {
+     width: 100%;
+    padding: 30px;
+    background: #fff;
+}
+
+    .add-recipes-form__list {
+        position: relative;
+        padding-bottom: 10px;
+        margin: 0;
+    }
+
+        .add-recipes-form__list__item {
+            display: flex;
+        }
+
+
+
+    .add-recipes-form__title {
+        color: #999;
+    }
+
+    .add-recipes-form__subtitle {
+        color: #111;
+        font-size: 20px;
+        margin: 2px 0;
+    }
+
+        .add-recipes-form__list__input {
+            padding: 10px;
+            font-size: 1rem;
+            color: #999;
+            width: 100%;
+            display: block;
+            border: 1px solid #999;
+            border-radius: 4px;
+            max-width: 100%;
+            margin: 10px;
+            flex: 1;
+        }
+
+        .add-recipes-form a {
+            position: absolute;
+            right: -23px;
+            top: 9px;
+            display: inline-block;
+            margin: 5px 0;
+            text-decoration: none;
+            font-size: 30px;
+            color: #999;
+        }
+
+            .add-recipes-form a:hover {
+                color: #000;
+            }
+
+.button {
+    display: block;
+    padding: 10px 20px;
+    border: 0;
+    text-align; center;
+    width: 100%;
+    background: yellow;
+    margin: 20px 0;
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: 4px;
+    border: 2px solid #999;
 }
