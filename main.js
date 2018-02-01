@@ -14,12 +14,14 @@
   firebase.initializeApp(config);
 
   const database = firebase.database();
+  const dbRef = database.ref();
+
 
   const dbData = firebase.database().ref().once('value').then(function(snapshot) { // Retrieving values from DB
      let dbObject = snapshot.val();
-  });
 
-  const dbRef = database.ref();
+     console.log(dbObject);
+  });
 
 
   // Form setup
@@ -37,9 +39,6 @@
     button.addEventListener("click", handleNewFieldAdding);
   });
 
-
-
-
   function handleAddRecipes() {
     let recipeName          = document.querySelector('#recipe-name').value;
     let ingredients         = Array.from(document.querySelectorAll('#ingredients li'));
@@ -50,7 +49,7 @@
     ingredients.filter(function(item) {
       let ingredientName      = item.querySelector('[name="sastojak"]').value;
       let ingredientQuantity  = item.querySelector('[name="kolicina"]').value;
-      // Extracting values from input and storing them into array
+      // Extracting values from input and storing them into array of objects
       ingredientsData.push({ingredientName, ingredientQuantity});
     });
 
@@ -59,22 +58,51 @@
       cookingStepsData.push(cookingStep);
     });
 
+    // Image
+    let recipeImage = document.querySelector('#recipe-image').files[0];
+    let imageStorage = firebase.storage().ref(`recipe-photos/${recipeImage.name}`);
 
-    let recipe = {
-      recipeName,
-      ingredientsData,
-      cookingStepsData,
-    }
+    let imageUpload = imageStorage.put(recipeImage);
 
-
-    dbRef.push().set(recipe, function(error) {
-      if (error) {
-        console.log(`Data could not be saved. ${error}`)
-      } else {
-        console.log("Data successfully saved");
-        recipeForm.reset();
+    function addRecipe (recipeImageURL) {
+      let recipe = {
+        recipeName,
+        ingredientsData,
+        cookingStepsData,
+        recipeImageURL
       }
+
+      dbRef.push().set(recipe, function(error) {
+        if (error) {
+          console.log(`Data could not be saved. ${error}`)
+        } else {
+          console.log("Data successfully saved");
+          recipeForm.reset();
+        }
+      });
+    }
+    // Let's monitor image upload to firebase storage and only on success add recipe
+    imageUpload.on('state_changed',function(snapshot){
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          console.log('Upload is paused');
+          break;
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          console.log('Upload is running');
+          break;
+      }
+      }, function(error) {
+        // Handle unsuccessful uploads
+        console.log('image upload failed' + error);
+      }, function() {
+        // Handle successful uploads on complete
+        console.info('Image successfully uploaded');
+        let recipeImageURL = imageUpload.snapshot.downloadURL;
+        addRecipe(recipeImageURL);
     });
+
+
+
 
   }
 

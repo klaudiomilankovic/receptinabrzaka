@@ -22,7 +22,8 @@ body {
 }
 
 .add-recipes-form {
-     width: 100%;
+    display: none;
+    width: 100%;
     padding: 30px;
     background: #fff;
 }
