@@ -8,33 +8,10 @@
 <body>
 
     <div class="wrapper">
-        <ul class="recipes">
+        <ul id="recipes" class="recipes">
 
         </ul>
-		<form class="add-recipes-form" action="javascript:">
-            <h2 class="add-recipes-form__title">Forma za dodavanje recepata</h2>
-            <h4 class="add-recipes-form__subtitle">Naziv recepta</h4>
-            <input type="text" class="add-recipes-form__list__input" name="Ime recepta" id="recipe-name" placeholder="Ime recepta" required>
-            <h4 class="add-recipes-form__subtitle">Sastojci</h4>
-            <ul class="add-recipes-form__list" id="ingredients">
-                <li class="add-recipes-form__list__item">
-                    <input class="add-recipes-form__list__input" type="text" name="sastojak" placeholder="sastojak" >
-                    <input class="add-recipes-form__list__input" type="number" name="kolicina" placeholder="količina u gramima" >
-                </li>
-                <a id="add-ingredient" data-add-new="ingredients" class="add-recipes-form__add-field" href="javascript:">+</a>
-            </ul>
-            <h4 class="add-recipes-form__subtitle">Priprema</h4>
-            <ol class="add-recipes-form__list" id="cooking-steps">
-                <li class="add-recipes-form__list__item">
-                    <textarea class="add-recipes-form__list__input" type="text" name="korak-pripreme" placeholder="korak pripreme" required></textarea>
-                </li>
-                <a id="add-cooking-step" data-add-new="cooking-steps" class="add-recipes-form__add-field" href="javascript:">+</a>
-            </ol>
-            <h4 class="add-recipes-form__subtitle">Slika</h4>
-            <input type="file" id="recipe-image" name="slika recepta" class="add-recipes-form__list__input" required>
 
-        	<button type="submit" class="button" href="javascript:" id="add-recipe">Dodaj recept</button>
-		</form>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>

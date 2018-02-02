@@ -16,15 +16,48 @@
   const database = firebase.database();
   const dbRef = database.ref();
 
+  const recipeList = document.querySelector('#recipes');
 
+  // Retrieving new recipes
   const dbData = firebase.database().ref().once('value').then(function(snapshot) { // Retrieving values from DB
      let dbObject = snapshot.val();
 
      console.log(dbObject);
+
+     for( let recipeKey in dbObject) {
+        let recipe = dbObject[recipeKey];
+        let cookingSteps = recipe.cookingStepsData;
+        let ingredientsData = recipe.ingredientsData;
+
+        let cookingStepsList = document.createElement('ul');
+        let ingredientsList  = document.createElement('ul');
+        ingredientsList.classList.add('recipe__ingredients');
+        cookingStepsList.classList.add('recipe__cooking-steps');
+
+        cookingSteps.map((step,listItem) => {
+          listItem = document.createElement('li');
+          listItem.innerHTML = step;
+          cookingStepsList.appendChild(listItem);
+        });
+
+        ingredientsData.map((ingredient,listItem) => {
+          listItem = document.createElement('li');
+          listItem.innerHTML = `${ingredient.ingredientName} (${ingredient.ingredientQuantity})`;
+          ingredientsList.appendChild(listItem);
+        });
+
+        let recipeElement = document.createElement('li');
+        recipeElement.innerHTML = `
+          <img class="recipe__image" src="${recipe.recipeImageURL}">
+          <h3 class='recipe__title'>${recipe.recipeName}</h3>`;
+        recipeElement.appendChild(cookingStepsList); // Add cooking steps under current recipe
+        recipeElement.appendChild(ingredientsList); // Add ingredients under current recipe
+        recipeList.appendChild(recipeElement); // Add image and title
+     }
   });
 
 
-  // Form setup
+  // Adding new recipes
   const recipeForm          = document.querySelector('.add-recipes-form');
   const submitButton        = document.querySelector('#add-recipe');
   const addNewFields        = Array.from(document.querySelectorAll('.add-recipes-form__add-field'));
@@ -65,7 +98,7 @@
     let imageUpload = imageStorage.put(recipeImage);
 
     function addRecipe (recipeImageURL) {
-      let recipe = {
+      let recipe = { // Object to be stored in firebase database
         recipeName,
         ingredientsData,
         cookingStepsData,
