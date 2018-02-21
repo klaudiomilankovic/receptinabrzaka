@@ -6,10 +6,10 @@ html {
 }
 
 body {
-    background: #111;
-    color: #fff;
-    font-size: 16;
-    font-family: Arial;
+    font-family: 'Montserrat', sans-serif;
+    margin:0;
+    padding:0;
+    position: relative;
 }
 
 .wrapper {
@@ -90,4 +90,322 @@ body {
     font-weight: 900;
     letter-spacing: 4px;
     border: 2px solid #999;
+}
+
+
+/*
+font-family: 'Montserrat', sans-serif;
+font-family: 'Great Vibes', cursive;
+*/
+
+
+.bg-elements {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    margin: 0;
+}
+
+.bg-elements::before {
+    content: "";
+    background-color: #dedede;
+    position: absolute;
+    width: 562px;
+    height: 2061px;
+    transform: rotate(-21deg);
+    z-index: 1;
+    left: -187px;
+    top: 0;
+}
+
+.bg-elements::after {
+    content: "";
+    background-color: #dedede;
+    position: absolute;
+    width: 562px;
+    height: 3352px;
+    transform: rotate(-21deg);
+    z-index: 1;
+    right: 0;
+    bottom: 0;
+}
+
+@media all and (max-width:760px) {
+    .bg-elemenst::before {
+        
+    }
+
+    .bg-elements::after {
+        display: none;
+    }
+}
+
+.site-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2f4858;
+}
+
+
+.wraper {
+    display: flex;
+    max-width:1000px;
+    padding-top:75px;
+    padding-bottom: 185px;
+    z-index: 2;
+    margin-left:56px;
+}
+
+
+@media all and (max-width:1000px) {
+    .wraper {
+        padding: 40px 0 40px 0;
+        margin:0;
+        align-items: center;
+    }
+}
+
+@media all and (max-width:760px) {
+    .wraper {
+        flex-direction: column;
+        padding: 0 10px 10px 10px;
+    }
+}
+
+.content  {
+    flex-basis: 50%;
+    border-radius: 4px 4px 0 0;
+    overflow: hidden;
+}
+
+@media all and (max-width:1000px) {
+    .content {
+        max-width: 400px;
+    }
+}
+
+@media all and (max-width:760px) {
+    .content {
+        order: 2;
+    }
+}
+.content__image {
+    position: relative;
+}
+
+.content__image__image {
+    max-width: 100%;
+    display: block;
+    line-height: 1;
+    border-radius: 4px 4px 0 0;
+}
+
+.content__subimage {
+    position: absolute;
+    right: 45px;
+    bottom: -30px;
+}
+
+.content__process {
+    background-color: #fff;
+    border-radius: 0 0 4px 4px;
+}
+
+.content__process__title {
+    font-family: 'Great Vibes', cursive;
+    margin:0;
+    font-size: 37px;
+    font-weight: normal;
+    line-height: 1.2;
+    padding:30px 10px 20px 0;
+    margin-left:30px;
+    border-bottom: 3px solid #dedede;
+}
+
+@media all and (max-width:760px) {
+    .content__process__title {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.title {
+    flex-basis: 50%;
+    padding:0 20px 0 50px;
+}
+
+@media all and (max-width:1000px) {
+    .title {
+        flex-basis: 30%;
+    }
+}
+
+@media all and (max-width:760px) {
+    .title {
+        padding-bottom:40px;
+    }
+}
+
+.content__process__preparation {
+    display: flex;
+}
+
+@media all and (max-width:1000px) {
+
+    .content__process__preparation {
+        flex-direction: column;
+
+    }
+}
+
+.preparation {
+    flex-basis: 30%;
+    padding: 30px 0 0 30px;
+    border-right: 3px solid #dedede;
+}
+
+@media all and (max-width:1000px) {
+    .preparation {
+        padding: 0 10px 0 30px;
+    }
+}
+
+    .preparation__title {
+        margin:0;
+        font-size: 15px;
+    }
+
+    .preparation__title {
+        margin-top:15px;
+    }
+
+    .preparation__list {
+        list-style-type: none;
+        padding:0 10px;
+        font-weight: 400;
+        border-bottom: 3px solid #dedede;
+        padding-bottom: 40px;
+    }
+
+   .preparation__items::before {
+        content:"-";
+        padding-right: 5px;
+    }
+.process {
+    flex-basis: 70%;
+    padding:30px 30px 0 0;
+}
+
+@media all and (max-width:1000px) {
+    .process {
+        padding: 0 10px 0 0;
+        max-height: 400px;
+        overflow: auto;
+    }
+}
+
+.process__title {
+    margin:0;
+    font-size: 15px;
+    padding-left:30px;
+}
+
+.process__list {
+    font-weight:400;
+    padding: 0 0 45px 40px;
+}
+
+@media all and (max-width:1000px)  {
+    .process__list {
+        padding:0 0 45px 52px;
+    }
+
+}
+
+.site__title {
+    margin:0;
+    padding-top:25px;
+    color: #f26419;
+    font-size: 82px;
+    font-weight: 900;
+    font-style: italic;
+    border-bottom: 2px solid #f6ae2d;
+}
+@media all and (max-width:1010px) {
+    .site__title {
+        font-size: 45px;
+    }
+}
+
+@media all and (max-width:820px) {
+    .site__title {
+        font-size: 49px;
+    }
+}
+
+.site__subtitle {
+    color:#f6ae2d;
+    font-size: 25px;
+    font-weight: 400;
+    margin:0;
+    padding:45px 0;
+}
+
+
+@media all and (max-width:1000px) {
+    .site__subtitle {
+        font-size: 20px;
+    }
+}
+
+@media all and (max-width:760px) {
+    .site__subtitle {
+        padding:20px 0;
+    }
+}
+
+.main__button {
+    background-color: /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f6ac2d+0,f6ac2d+14,f5a029+24,f5a029+24,f48b24+38,f3781e+57,f26419+100 */
+    background: #f6ac2d; /* Old browsers */
+    background: -moz-linear-gradient(left, #f6ac2d 0%, #f6ac2d 14%, #f5a029 24%, #f5a029 24%, #f48b24 38%, #f3781e 57%, #f26419 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, #f6ac2d 0%,#f6ac2d 14%,#f5a029 24%,#f5a029 24%,#f48b24 38%,#f3781e 57%,#f26419 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, #f6ac2d 0%,#f6ac2d 14%,#f5a029 24%,#f5a029 24%,#f48b24 38%,#f3781e 57%,#f26419 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6ac2d', endColorstr='#f26419',GradientType=1 ); /* IE6-9 */ 
+    padding:60px;
+    display: block;
+    width: 100%;
+    padding: 1.2vw 0.5vw;
+    border: none;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 26px;
+    border-radius:4px;
+}
+
+@media all and (max-width:1010px) {
+    .main__button {
+        padding: 1vw 0.3vw;
+        font-size: 17px;
+    }
+}
+
+@media all and (max-width:760px) {
+    .main__button {
+        display: block;
+        width: 30%;
+        margin:0 auto;
+        padding:10px;
+    }
+}
+
+@media all and (max-width:650px) {
+    .main__button {
+        font-size: 15px;
+        text-transform: capitalize;
+    }
+
 }
