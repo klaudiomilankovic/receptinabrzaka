@@ -29,29 +29,54 @@
         let cookingSteps = recipe.cookingStepsData;
         let ingredientsData = recipe.ingredientsData;
 
-        let cookingStepsList = document.createElement('ul');
-        let ingredientsList  = document.createElement('ul');
-        ingredientsList.classList.add('recipe__ingredients');
-        cookingStepsList.classList.add('recipe__cooking-steps');
+        let recipeElement = document.createElement('article');
+        recipeElement.classList.add('content');
+        recipeElement.innerHTML = `
+          <header class="content__image">
+          <img class="content__image__image" src="${recipe.recipeImageURL}">
+          <svg height="64" width="64" class="content__subimage" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" fill="#C75C5C" r="32"/><path d="M49.982 31.003c-.094-5.522-4.574-10.442-10.107-10.442-3.2 0-6.019 1.674-7.875 4.131-1.856-2.457-4.676-4.131-7.875-4.131-5.533 0-10.012 4.921-10.107 10.442H14c0 .034.007.065.007.099 0 .025-.007.049-.007.076 0 .155.038.272.045.421.495 14.071 17.813 19.84 17.813 19.84S49.43 45.677 49.95 31.621c.009-.157.05-.281.05-.443 0-.027-.007-.052-.007-.076 0-.036.007-.065.007-.099h-.018z" fill="#231F20" opacity=".2"/><path d="M49.982 29.003c-.094-5.522-4.574-10.442-10.107-10.442-3.2 0-6.019 1.674-7.875 4.131-1.856-2.457-4.676-4.131-7.875-4.131-5.533 0-10.012 4.921-10.107 10.442H14c0 .034.007.065.007.099 0 .025-.007.049-.007.076 0 .155.038.272.045.421.495 14.071 17.813 19.84 17.813 19.84S49.43 43.677 49.95 29.621c.009-.157.05-.281.05-.443 0-.027-.007-.052-.007-.076 0-.036.007-.065.007-.099h-.018z" fill="#FFF"/></svg>
+          </header>
+          <footer class="content__process">
+          <h3 class='content__process__title'>${recipe.recipeName}</h3>
+          <div class="content__process__preparation">
+              <div class="preparation">
+                <h6 class="process__title">Sastojci</h6>
+                <ul class="preparation__list">
+
+                </ul>
+              </div>
+              <div class="process">
+                <h6 class="process__title">Priprema</h6>
+                <ol class="process__list">
+
+                </ol>
+              </div>
+          </div>
+
+
+          </footer>
+          `;
+
+        let cookingStepsList = recipeElement.querySelector('.preparation__list');
+        let ingredientsList  = recipeElement.querySelector('.process__list');
 
         cookingSteps.map((step,listItem) => {
           listItem = document.createElement('li');
+          listItem.className = "preparation__items";
           listItem.innerHTML = step;
           cookingStepsList.appendChild(listItem);
         });
 
         ingredientsData.map((ingredient,listItem) => {
           listItem = document.createElement('li');
+          listItem.className = "process__items";
           listItem.innerHTML = `${ingredient.ingredientName} (${ingredient.ingredientQuantity})`;
           ingredientsList.appendChild(listItem);
         });
 
-        let recipeElement = document.createElement('li');
-        recipeElement.innerHTML = `
-          <img class="recipe__image" src="${recipe.recipeImageURL}">
-          <h3 class='recipe__title'>${recipe.recipeName}</h3>`;
-        recipeElement.appendChild(cookingStepsList); // Add cooking steps under current recipe
-        recipeElement.appendChild(ingredientsList); // Add ingredients under current recipe
+
+        recipeElement.querySelector('.process').appendChild(ingredientsList); // Add ingredients under current recipe
+        recipeElement.querySelector('.preparation').appendChild(cookingStepsList); // Add cooking steps under current recipe
         recipeList.appendChild(recipeElement); // Add image and title
      }
   });
@@ -133,10 +158,6 @@
         let recipeImageURL = imageUpload.snapshot.downloadURL;
         addRecipe(recipeImageURL);
     });
-
-
-
-
   }
 
   submitButton.addEventListener('click', handleAddRecipes);
