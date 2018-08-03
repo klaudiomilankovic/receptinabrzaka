@@ -19,67 +19,78 @@
   const recipeList = document.querySelector('#recipes');
 
   // Retrieving new recipes
-  const dbData = firebase.database().ref().once('value').then(function(snapshot) { // Retrieving values from DB
+  const dbData = dbRef.once('value').then(function(snapshot) { // Retrieving values from DB
      let dbObject = snapshot.val();
 
      console.log(dbObject);
 
+     let counter = 1;
      for( let recipeKey in dbObject) {
         let recipe = dbObject[recipeKey];
         let cookingSteps = recipe.cookingStepsData;
         let ingredientsData = recipe.ingredientsData;
 
         let recipeElement = document.createElement('article');
+        recipeElement.dataset.id=counter;
         recipeElement.classList.add('content');
+        if (counter < 2) {
+          recipeElement.classList.add('active');
+        }
         recipeElement.innerHTML = `
           <header class="content__image">
           <img class="content__image__image" src="${recipe.recipeImageURL}">
           <svg height="64" width="64" class="content__subimage" xmlns="http://www.w3.org/2000/svg"><circle cx="32" cy="32" fill="#C75C5C" r="32"/><path d="M49.982 31.003c-.094-5.522-4.574-10.442-10.107-10.442-3.2 0-6.019 1.674-7.875 4.131-1.856-2.457-4.676-4.131-7.875-4.131-5.533 0-10.012 4.921-10.107 10.442H14c0 .034.007.065.007.099 0 .025-.007.049-.007.076 0 .155.038.272.045.421.495 14.071 17.813 19.84 17.813 19.84S49.43 45.677 49.95 31.621c.009-.157.05-.281.05-.443 0-.027-.007-.052-.007-.076 0-.036.007-.065.007-.099h-.018z" fill="#231F20" opacity=".2"/><path d="M49.982 29.003c-.094-5.522-4.574-10.442-10.107-10.442-3.2 0-6.019 1.674-7.875 4.131-1.856-2.457-4.676-4.131-7.875-4.131-5.533 0-10.012 4.921-10.107 10.442H14c0 .034.007.065.007.099 0 .025-.007.049-.007.076 0 .155.038.272.045.421.495 14.071 17.813 19.84 17.813 19.84S49.43 43.677 49.95 29.621c.009-.157.05-.281.05-.443 0-.027-.007-.052-.007-.076 0-.036.007-.065.007-.099h-.018z" fill="#FFF"/></svg>
           </header>
           <footer class="content__process">
-          <h3 class='content__process__title'>${recipe.recipeName}</h3>
-          <div class="content__process__preparation">
-              <div class="preparation">
-                <h6 class="process__title">Sastojci</h6>
-                <ul class="preparation__list">
+            <h3 class='content__process__title'>${recipe.recipeName}</h3>
+            <div class="content__process__preparation">
+                <div class="preparation">
+                  <h6 class="process__title">Sastojci</h6>
+                  <ul class="preparation__list">
 
-                </ul>
-              </div>
-              <div class="process">
-                <h6 class="process__title">Priprema</h6>
-                <ol class="process__list">
+                  </ul>
+                </div>
+                <div class="process">
+                  <h6 class="process__title">Priprema</h6>
+                  <ol class="process__list">
 
-                </ol>
-              </div>
-          </div>
-
-
+                  </ol>
+                </div>
+            </div>
           </footer>
           `;
 
-        let cookingStepsList = recipeElement.querySelector('.preparation__list');
-        let ingredientsList  = recipeElement.querySelector('.process__list');
+        let cookingStepsList = recipeElement.querySelector('.process__list');
+        let ingredientsList  = recipeElement.querySelector('.preparation__list');
 
         cookingSteps.map((step,listItem) => {
           listItem = document.createElement('li');
-          listItem.className = "preparation__items";
+          listItem.className = "process__items";
           listItem.innerHTML = step;
           cookingStepsList.appendChild(listItem);
         });
 
         ingredientsData.map((ingredient,listItem) => {
           listItem = document.createElement('li');
-          listItem.className = "process__items";
+          listItem.className = "preparation__items";
           listItem.innerHTML = `${ingredient.ingredientName} (${ingredient.ingredientQuantity})`;
           ingredientsList.appendChild(listItem);
         });
 
 
-        recipeElement.querySelector('.process').appendChild(ingredientsList); // Add ingredients under current recipe
-        recipeElement.querySelector('.preparation').appendChild(cookingStepsList); // Add cooking steps under current recipe
+        recipeElement.querySelector('.process').appendChild(cookingStepsList); // Add ingredients under current recipe
+        recipeElement.querySelector('.preparation').appendChild(ingredientsList); // Add cooking steps under current recipe
         recipeList.appendChild(recipeElement); // Add image and title
+        counter++;
      }
-  });
+
+     // Wait for first image to be loaded and then display recipe
+     let currentRecipeImage = document.querySelector('#recipes .content.active .content__image__image');
+     currentRecipeImage.onload = function() {
+      document.querySelector('.recipes__skeleton').classList.add('hide');
+     };
+    });
+
 
 
   // Adding new recipes
@@ -146,7 +157,7 @@
           console.log('Upload is paused');
           break;
         case firebase.storage.TaskState.RUNNING: // or 'running'
-          console.log('Upload is running');
+          console.log('Uploading image');
           break;
       }
       }, function(error) {
@@ -163,5 +174,26 @@
   submitButton.addEventListener('click', handleAddRecipes);
 
 
+  const nextRecipeButton  = document.querySelector('.main__button');
+
+  function handleRandomRecipe() {
+    let loadedRecipes = Array.from(document.querySelectorAll('#recipes .content'));
+    let randomNumber = Math.floor(Math.random() * loadedRecipes.length +1);
+    let currentRecipe = document.querySelector('#recipes .content.active');
+    let randomRecipe = document.querySelector(`.content[data-id="${randomNumber}"]`);
+    currentRecipe.classList.remove('active');
+    randomRecipe.classList.add('active');
+  }
+
+  nextRecipeButton.addEventListener('click', handleRandomRecipe);
+
+  // Heeader CTA Hover
+  var btn = document.querySelector('.main__button')
+  btn.onmousemove = function (e) {
+    var x = e.pageX - btn.offsetLeft - btn.offsetParent.offsetLeft
+    var y = e.pageY - btn.offsetTop - btn.offsetParent.offsetTop
+    btn.style.setProperty('--x', x + 'px')
+    btn.style.setProperty('--y', y + 'px')
+  };
 
 }());
