@@ -18,6 +18,7 @@ body {
     padding: 50px;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     position: relative;
     z-index: 20;
 }
@@ -181,18 +182,13 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
     display: block;
 }
 
-
-@media all and (max-width:760px) {
-    .recipes {
-        order: 2;
-    }
-}
-
 .recipes {
     padding-left: 0;
-    width: 500px;
+    width: 600px;
     position: relative;
-    margin: 0;
+    margin: 0 auto;
+    min-height: 510px;
+    transition: 1s ease-out;
 }
 .content__image {
     position: relative;
@@ -260,13 +256,6 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
     display: flex;
 }
 
-@media all and (max-width:1000px) {
-
-    .content__process__preparation {
-        flex-direction: column;
-
-    }
-}
 
 .preparation {
     flex-basis: 35%;
@@ -334,7 +323,7 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
 
 @media all and (max-width:1000px)  {
     .process__list {
-        padding:0 0 45px 52px;
+        padding:0 0 45px 11px;
     }
 
 }
@@ -342,7 +331,8 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
 .site__title {
     margin:0;
     color: #f26419;
-    font-size: 82px;
+    font-size: 60px;
+    max-width: 600px;
     font-weight: 900;
     font-style: italic;
     border-bottom: 2px solid #f6ae2d;
@@ -366,7 +356,8 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
     font-size: 25px;
     font-weight: 400;
     margin:0;
-    padding:45px 0;
+    padding:15px 0;
+    text-align: right;
 }
 
 
@@ -382,8 +373,8 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
     }
 
     .recipes {
-        max-width: 95%;
         margin: 0 auto;
+        width: 100%;
     }
 }
 
@@ -406,7 +397,14 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
     text-decoration: none;
     transition: 0.3s ease-in-out;
     overflow: hidden;
+    width: 300px;
+    margin: 30px 0 0 auto;
     position: relative;
+}
+
+.main__button:active {
+    position: relative;
+    top: 2px;
 }
 
 
@@ -429,42 +427,19 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
     --size: 300px;
 }
 
-@media all and (max-width:1010px) {
-    .main__button {
-        padding: 15px 30px;
-        font-size: 16px;
-    }
-}
-
-@media all and (max-width:760px) {
-    .main__button {
-        display: block;
-        width: 30%;
-        margin:0 auto;
-        padding:10px;
-    }
-}
-
-@media all and (max-width:650px) {
-    .main__button {
-        font-size: 15px;
-        text-transform: capitalize;
-    }
-
-}
-
 .recipes__skeleton {
     position: absolute;
     top: 0;
     right: 0;
     left: 0;
+    bottom: 0;
     display: flex;
     justify-content: center;
     align-items: flex-end;
     z-index: 10;
     margin: 0;
     background: #f8f8f8;
-    min-height: 500px;
+    min-height: 510px;
     transition: 0.5s ease-in-out;
 }
 
@@ -534,6 +509,17 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
       animation: sk-scaleout 1.0s infinite ease-in-out;
 
 }
+
+@media (max-width:450px ) {
+    .content__process__preparation {
+        flex-direction: column;
+    }
+
+    .preparation__list {
+        padding-bottom: 10px;
+    }
+}
+
 
 @-webkit-keyframes sk-scaleout {
       0% { -webkit-transform: scale(0) }

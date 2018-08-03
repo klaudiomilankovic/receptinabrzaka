@@ -178,8 +178,12 @@
 
   function handleRandomRecipe() {
     let loadedRecipes = Array.from(document.querySelectorAll('#recipes .content'));
-    let randomNumber = Math.floor(Math.random() * loadedRecipes.length +1);
     let currentRecipe = document.querySelector('#recipes .content.active');
+    let currentRecipeId = currentRecipe.getAttribute('data-id');
+    let randomNumber = Math.floor(Math.random() * loadedRecipes.length +1);
+    while (currentRecipeId == randomNumber) { // make sure it doesn't load the same recipe
+      randomNumber = Math.floor(Math.random() * loadedRecipes.length +1);
+    }
     let randomRecipe = document.querySelector(`.content[data-id="${randomNumber}"]`);
     currentRecipe.classList.remove('active');
     randomRecipe.classList.add('active');
