@@ -100,14 +100,8 @@
 
   function handleNewFieldAdding(event) { // For adding multiple ingredients we duplicate inputs
     let addToList = document.querySelector(`#${event.target.getAttribute(`data-add-new`)}`);
-    let numberOfFields  = addToList.querySelectorAll(`li`).length + 1;
-    let listItem  = `
-    	<li class="add-recipes-form__list__item">
-    	    <input class="add-recipes-form__list__input" type="text" name="sastojak-${numberOfFields}" placeholder="sastojak ${numberOfFields}">
-    	    <input class="add-recipes-form__list__input" type="number" name="kolicina-${numberOfFields}" placeholder="količina">
-    	</li>
-    `;
-    addToList.insertAdjacentHTML('beforeend', listItem);
+    let listItem  = addToList.querySelector(`li:first-child`);
+    addToList.appendChild(listItem.cloneNode(true));
   }
 
   addNewFields.map((button) => {
