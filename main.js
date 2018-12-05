@@ -65,14 +65,14 @@
 
         cookingSteps.map((step,listItem) => {
           listItem = document.createElement('li');
-          listItem.className = "process__items";
+          listItem.className = "process__list__item";
           listItem.innerHTML = step;
           cookingStepsList.appendChild(listItem);
         });
 
         ingredientsData.map((ingredient,listItem) => {
           listItem = document.createElement('li');
-          listItem.className = "preparation__items";
+          listItem.className = "preparation__list__item";
           listItem.innerHTML = `${ingredient.ingredientName} (${ingredient.ingredientQuantity})`;
           ingredientsList.appendChild(listItem);
         });
@@ -100,8 +100,14 @@
 
   function handleNewFieldAdding(event) { // For adding multiple ingredients we duplicate inputs
     let addToList = document.querySelector(`#${event.target.getAttribute(`data-add-new`)}`);
-    let listItem  = addToList.querySelector(`li:first-child`);
-    addToList.appendChild(listItem.cloneNode(true));
+    let numberOfFields  = addToList.querySelectorAll(`li`).length + 1;
+    let listItem  = `
+    	<li class="add-recipes-form__list__item">
+    	    <input class="add-recipes-form__list__input" type="text" name="sastojak-${numberOfFields}" placeholder="sastojak ${numberOfFields}">
+    	    <input class="add-recipes-form__list__input" type="number" name="kolicina-${numberOfFields}" placeholder="količina">
+    	</li>
+    `;
+    addToList.insertAdjacentHTML('beforeend', listItem);
   }
 
   addNewFields.map((button) => {
@@ -172,7 +178,6 @@
   }
 
   submitButton.addEventListener('click', handleAddRecipes);
-
 
   const nextRecipeButton  = document.querySelector('.main__button');
 

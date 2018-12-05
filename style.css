@@ -288,9 +288,12 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
 
     .preparation__list li {
         font-size: 13px;
+        margin-bottom: 7px;
+        font-weight: 500;
+        text-transform: capitalize;
     }
 
-   .preparation__items::before {
+   .preparation__list__item::before {
         content:"-";
         padding-right: 5px;
     }
@@ -317,7 +320,7 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
     padding: 0 0 0 11px;
 }
 
-.process__items {
+.process__list__item {
     font-size: 13px;
     margin-bottom:  10px;
 }
