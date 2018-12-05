@@ -333,9 +333,9 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
 }
 
 .site__title {
-    margin:0;
+    margin: 0;
     color: #f26419;
-    font-size: 60px;
+    font-size: 40px;
     max-width: 600px;
     font-weight: 900;
     font-style: italic;
@@ -357,7 +357,7 @@ background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox=
 
 .site__subtitle {
     color:#f6ae2d;
-    font-size: 25px;
+    font-size: 9px;
     font-weight: 400;
     margin:0;
     padding:15px 0;

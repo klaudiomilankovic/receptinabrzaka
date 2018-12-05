@@ -73,7 +73,11 @@
         ingredientsData.map((ingredient,listItem) => {
           listItem = document.createElement('li');
           listItem.className = "preparation__list__item";
-          listItem.innerHTML = `${ingredient.ingredientName} (${ingredient.ingredientQuantity})`;
+          ingredient.ingredientQuantity ?
+          	listItem.innerHTML = `${ingredient.ingredientName} (${ingredient.ingredientQuantity})`
+          	:
+          	listItem.innerHTML = `${ingredient.ingredientName}`
+          ;
           ingredientsList.appendChild(listItem);
         });
 
